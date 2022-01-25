@@ -41,6 +41,6 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Họ và tên: "+ getName()+", Ngày sinh: "+getBirthday()+", CMND: "+getindentity();
+        return getName() + ", " + getBirthday() + ", " + getindentity();
     }
 }

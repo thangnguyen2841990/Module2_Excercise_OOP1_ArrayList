@@ -50,8 +50,8 @@ public class Hotel {
 
     @Override
     public String toString() {
-        return person.toString()+ ", Số ngày thuê trọ: " + rentsDay +
-                ", Loại phòng: " + type +
-                ", giá phòng: " + price;
+        return person.toString() + ", " + rentsDay +
+                ", " + type +
+                ", " + price;
     }
 }

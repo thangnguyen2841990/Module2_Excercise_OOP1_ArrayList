@@ -1,15 +1,21 @@
 package com.codegym;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
     public static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        menu();
         int choice = -1;
         HotelManagement hotelManagement = new HotelManagement();
+        try {
+            hotelManagement.readFiles("hotel.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         do {
+            menu();
             System.out.println("Nhập lựa chọn của bạn: ");
             choice = scanner.nextInt();
             if (choice > 6) {
@@ -19,22 +25,16 @@ public class Main {
                 case 1: {
                     System.out.println("----Hiển thị thông tin khách thuê phòng");
                     hotelManagement.displayAllHotels();
-                    if (hotelManagement.getHotels().size()==0){
+                    if (hotelManagement.getHotels().size() == 0) {
                         System.out.println("Không có khách hàng nào để hiển thị!");
                     }
                     break;
                 }
                 case 2: {
                     System.out.println("----Thêm khách thuê phòng----");
-                    System.out.println("Nhập vị trí muốn thêm: ");
-                    int index = scanner.nextInt();
-                    if ((index - 1) < 0 || (index - 1) > hotelManagement.getHotels().size()) {
-                        System.out.println("Vị trí không hợp lệ");
-                    } else {
-                        Hotel newHotel = inputNewHotel();
-                        hotelManagement.addNewHotel(newHotel);
-                        System.out.println("Đã thêm khách thành công!");
-                    }
+                    Hotel newHotel = inputNewHotel();
+                    hotelManagement.addNewHotel(newHotel);
+                    System.out.println("Đã thêm khách thành công!");
                     break;
                 }
                 case 3: {
@@ -44,7 +44,7 @@ public class Main {
                     if ((index - 1) < 0 || (index - 1) > hotelManagement.getHotels().size()) {
                         System.out.println("Vị trí không hợp lệ");
                     } else {
-                        hotelManagement.removeHotel(index-1);
+                        hotelManagement.removeHotel(index - 1);
                         System.out.println("Đã xóa khách thành công!");
                     }
                     break;
@@ -57,7 +57,7 @@ public class Main {
                         System.out.println("Vị trí không hợp lệ");
                     } else {
                         Hotel newHotel = inputNewHotel();
-                        hotelManagement.updateHotel(index-1, newHotel);
+                        hotelManagement.updateHotel(index - 1, newHotel);
                         System.out.println("Đã cập nhật thôn tin khách thành công!");
                     }
                     break;
@@ -68,8 +68,8 @@ public class Main {
                     scanner.nextLine();
                     String indentity = scanner.nextLine();
                     int index = hotelManagement.findIndentityCustomer(indentity);
-                    if (index == -1){
-                        System.out.println("Không tìm thấy khách có CMND: "+ indentity);
+                    if (index == -1) {
+                        System.out.println("Không tìm thấy khách có CMND: " + indentity);
                     } else {
                         System.out.println(hotelManagement.getHotels().get(index));
                     }
@@ -81,15 +81,20 @@ public class Main {
                     scanner.nextLine();
                     String indentity = scanner.nextLine();
                     int index = hotelManagement.findIndentityCustomer(indentity);
-                    if (index == -1){
-                        System.out.println("Không tìm thấy khách có CMND: "+ indentity);
+                    if (index == -1) {
+                        System.out.println("Không tìm thấy khách có CMND: " + indentity);
                     } else {
                         double payMoney = hotelManagement.payMoney(indentity);
-                        System.out.println("Số tiền khách phải trả là: "+ payMoney+"(VND)");
+                        System.out.println("Số tiền khách phải trả là: " + payMoney + "(VND)");
                     }
 
                     break;
                 }
+            }
+            try {
+                hotelManagement.writeToFiles("hotel.txt");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         } while (choice != 0);
 
