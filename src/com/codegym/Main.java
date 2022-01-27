@@ -9,9 +9,14 @@ public class Main {
     public static void main(String[] args) {
         int choice = -1;
         HotelManagement hotelManagement = new HotelManagement();
+//        try {
+//            hotelManagement.readFiles("hotel.txt");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         try {
-            hotelManagement.readFiles("hotel.txt");
-        } catch (IOException e) {
+            hotelManagement.readFile();
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         do {
@@ -91,8 +96,13 @@ public class Main {
                     break;
                 }
             }
+//            try {
+//                hotelManagement.writeToFiles("hotel.txt");
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
             try {
-                hotelManagement.writeToFiles("hotel.txt");
+                hotelManagement.writeToFile1(hotelManagement.getHotels());
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -2,6 +2,7 @@ package com.codegym;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class HotelManagement {
     private ArrayList<Hotel> hotels;
@@ -61,35 +62,17 @@ public class HotelManagement {
         return hotels.get(index).getPrice() * hotels.get(index).getRentsDay();
     }
 
-    //ghi file
-    public void writeToFiles(String path) throws IOException {
-        FileWriter fileWriter = new FileWriter(path);
-        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-        for (Hotel hotel : hotels) {
-            bufferedWriter.write(hotel.toString() + "\n");
-        }
-        bufferedWriter.close();
-        fileWriter.close();
+    public void writeToFile1(List<Hotel> hotels) throws IOException {
+        OutputStream os = new FileOutputStream("hotel2.txt");
+        ObjectOutputStream oos = new ObjectOutputStream(os);
+        oos.writeObject(hotels);
     }
-    // đọc file
-    public void readFiles(String path) throws IOException {
-        FileReader fileReader = new FileReader(path);
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
-        String line = null;
-        while ((line = bufferedReader.readLine()) != null){
-            String[] lines = line.split(",");
-            String name = lines[0].trim();
-            String birthDay = lines[1].trim();
-            String indentity = lines[2].trim();
-            Person person = new Person(name,birthDay,indentity);
-            int rentDay = Integer.parseInt(lines[3].trim());
-            String type = lines[4].trim();
-            double price = Double.parseDouble(lines[5].trim());
-            Hotel hotel = new Hotel(rentDay,type,price,person);
-            this.hotels.add(hotel);
-        }
-        bufferedReader.close();
-        fileReader.close();
+
+    public void readFile() throws IOException, ClassNotFoundException {
+        InputStream is = new FileInputStream("hotel2.txt");
+        ObjectInputStream ois = new ObjectInputStream(is);
+        this.hotels = (ArrayList<Hotel>) ois.readObject();
     }
 }
+
 

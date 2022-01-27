@@ -1,6 +1,8 @@
 package com.codegym;
 
-public class Hotel {
+import java.io.Serializable;
+
+public class Hotel implements Serializable {
     private int rentsDay;
     private String type;
     private double price;
@@ -50,8 +52,8 @@ public class Hotel {
 
     @Override
     public String toString() {
-        return person.toString() + ", " + rentsDay +
-                ", " + type +
-                ", " + price;
+        return person.toString() + ", Số ngày thuê: " + rentsDay +
+                ", loại phòng: " + type +
+                ", giá: " + price + "(VND/ngày.)";
     }
 }

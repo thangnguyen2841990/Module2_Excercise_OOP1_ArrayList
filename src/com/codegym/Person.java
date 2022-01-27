@@ -1,6 +1,8 @@
 package com.codegym;
 
-public class Person {
+import java.io.Serializable;
+
+public class Person implements Serializable {
     private String name;
     private String birthday;
     private String indentity;
@@ -41,6 +43,6 @@ public class Person {
 
     @Override
     public String toString() {
-        return getName() + ", " + getBirthday() + ", " + getindentity();
+        return "Họ và tên: "+getName() + ", ngày sinh: " + getBirthday() + ", CMND:" + getindentity();
     }
 }
